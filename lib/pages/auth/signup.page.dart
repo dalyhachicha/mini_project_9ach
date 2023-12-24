@@ -1,6 +1,9 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:mini_project_9ach/utils/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class SignupPage extends StatelessWidget {
   SignupPage({Key? key});
@@ -153,7 +156,31 @@ class SignupPage extends StatelessWidget {
                             email: emailController.text.trim(),
                             password: passwordController.text,
                           );
-                          Navigator.pushReplacementNamed(context, '/home');
+                          var userData = {
+                            "firstName": firstNameController.text,
+                            "lastName": lastNameController.text,
+                            "email": emailController.text,
+                            "address": addressController.text,
+                            "phoneNumber": phoneNumberController.text
+                          };
+                          var randomId =
+                              "random#${String.fromCharCodes(List.generate(10, (index) => (Random().nextInt(26) + 97)))}";
+                          var db = FirebaseFirestore.instance;
+                          await db
+                              .collection("users")
+                              .doc(userCredential.user?.uid ?? randomId)
+                              .set(userData)
+                              .then((value) {
+                            Navigator.pushReplacementNamed(context, '/home');
+                          }).catchError((error) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content:
+                                    Text(error ?? 'Error saving you data!'),
+                                duration: const Duration(seconds: 3),
+                              ),
+                            );
+                          });
                         } on FirebaseAuthException catch (e) {
                           String errorMessage =
                               e.message ?? "An error occurred";
