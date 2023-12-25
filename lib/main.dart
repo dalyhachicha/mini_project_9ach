@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:mini_project_9ach/firebase_options.dart';
 import 'package:mini_project_9ach/pages/auth/login.page.dart';
 import 'package:mini_project_9ach/pages/auth/signup.page.dart';
+import 'package:mini_project_9ach/pages/checkout.page.dart';
 import 'package:mini_project_9ach/pages/home.page.dart';
 import 'package:mini_project_9ach/utils/constants.dart';
 
@@ -24,9 +25,10 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       routes: {
-        '/home': (context) => HomePage(),
+        '/home': (context) => const HomePage(),
         '/login': (context) => LoginPage(),
         '/signup': (context) => SignupPage(),
+        '/checkout': (context) => const CheckoutPage(),
       },
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: primaryColor),
@@ -54,11 +56,32 @@ class _AuthWrapperState extends State<AuthWrapper> {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const CircularProgressIndicator();
         } else if (snapshot.hasData) {
-          return HomePage();
+          return const HomePage();
         } else {
           return LoginPage();
         }
       },
     );
   }
+}
+
+class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
+  const CustomAppBar({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(
+      iconTheme: const IconThemeData(color: Colors.white),
+      backgroundColor: primaryColor,
+      actions: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Image.asset('assets/images/logo-white.png'),
+        ),
+      ],
+    );
+  }
+
+  @override
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }
