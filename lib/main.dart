@@ -6,6 +6,7 @@ import 'package:mini_project_9ach/pages/auth/login.page.dart';
 import 'package:mini_project_9ach/pages/auth/signup.page.dart';
 import 'package:mini_project_9ach/pages/checkout.page.dart';
 import 'package:mini_project_9ach/pages/home.page.dart';
+import 'package:mini_project_9ach/pages/product_details.page.dart';
 import 'package:mini_project_9ach/utils/constants.dart';
 
 void main() async {
@@ -65,23 +66,4 @@ class _AuthWrapperState extends State<AuthWrapper> {
   }
 }
 
-class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const CustomAppBar({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return AppBar(
-      iconTheme: const IconThemeData(color: Colors.white),
-      backgroundColor: primaryColor,
-      actions: [
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Image.asset('assets/images/logo-white.png'),
-        ),
-      ],
-    );
-  }
-
-  @override
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
-}

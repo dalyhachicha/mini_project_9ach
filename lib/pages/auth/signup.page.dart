@@ -35,9 +35,19 @@ class SignupPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Container(
-                    child: Image.asset('assets/images/logo.png'),
-                    height: 200,
+                    height: 230,
                     margin: const EdgeInsets.symmetric(vertical: 24),
+                    child: Column(children: [
+                      Image.asset('assets/images/logo.png'),
+                      const SizedBox(height: 20),
+                      const Text(
+                        "قشش باحسن الأسوام",
+                        style: TextStyle(
+                            fontSize: 30,
+                            color: primaryColor,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ]),
                   ),
                   Row(
                     children: [
@@ -112,7 +122,8 @@ class SignupPage extends StatelessWidget {
                       if (value == null || value.isEmpty) {
                         return 'Veuillez entrer votre adresse email.';
                       }
-                      if (!RegExp(r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$')
+                      if (!RegExp(
+                              r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$')
                           .hasMatch(value)) {
                         return 'Veuillez entrer une adresse email valide.';
                       }
@@ -199,8 +210,8 @@ class SignupPage extends StatelessWidget {
                           }
                         }
                       },
-                      style:
-                          ElevatedButton.styleFrom(backgroundColor: primaryColor),
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: primaryColor),
                       child: const Text('Créer un compte',
                           style: TextStyle(
                             color: Colors.white,

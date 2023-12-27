@@ -25,9 +25,13 @@ class LoginPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Container(
-                    child: Image.asset('assets/images/logo.png'),
-                    height: 200,
+                    height: 230,
                     margin: const EdgeInsets.symmetric(vertical: 24),
+                    child: Column(children: [
+                      Image.asset('assets/images/logo.png'),
+                      const SizedBox(height: 20),
+                      const Text("قشش باحسن الأسوام", style: TextStyle(fontSize: 30, color: primaryColor, fontWeight: FontWeight.bold),),
+                    ]),
                   ),
                   TextFormField(
                     controller: emailController,
@@ -63,38 +67,41 @@ class LoginPage extends StatelessWidget {
                   ),
                   const SizedBox(height: 24.0),
                   ElevatedButton(
-                      onPressed: () async {
-                        if (_formKey.currentState?.validate() ?? false) {
-                          try {
-                            UserCredential userCredential = await FirebaseAuth
-                                .instance
-                                .signInWithEmailAndPassword(
-                              email: emailController.text.trim(),
-                              password: passwordController.text.trim(),
-                            );
-                            Navigator.pushReplacementNamed(context, '/home');
-                          } on FirebaseAuthException catch (e) {
-                            String errorMessage =
-                                e.message ?? "An error occurred";
-                            if (e.code == 'invalid-credential') {
-                              errorMessage =
-                                  "Identifiants incorrects. Veuillez réessayer.";
-                            }
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text(errorMessage),
-                                duration: const Duration(seconds: 3),
-                              ),
-                            );
+                    onPressed: () async {
+                      if (_formKey.currentState?.validate() ?? false) {
+                        try {
+                          UserCredential userCredential = await FirebaseAuth
+                              .instance
+                              .signInWithEmailAndPassword(
+                            email: emailController.text.trim(),
+                            password: passwordController.text.trim(),
+                          );
+                          Navigator.pushReplacementNamed(context, '/home');
+                        } on FirebaseAuthException catch (e) {
+                          String errorMessage =
+                              e.message ?? "An error occurred";
+                          if (e.code == 'invalid-credential') {
+                            errorMessage =
+                                "Identifiants incorrects. Veuillez réessayer.";
                           }
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(errorMessage),
+                              duration: const Duration(seconds: 3),
+                            ),
+                          );
                         }
-                      },
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: primaryColor),
-                      child: const Text('Se Connecter',
-                          style: TextStyle(
-                            color: Colors.white,
-                          ))),
+                      }
+                    },
+                    style:
+                        ElevatedButton.styleFrom(backgroundColor: primaryColor),
+                    child: const Text(
+                      'Se Connecter',
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
                   const SizedBox(height: 16.0),
                   TextButton(
                     onPressed: () {
